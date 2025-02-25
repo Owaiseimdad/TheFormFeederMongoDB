@@ -24,6 +24,9 @@ class Settings(BaseSettings):
     DB_TYPES: List[str]  # Example: ["mongodb", "postgres"]
     DB_URIS: List[str]   # Example: ["mongodb://localhost:27017", "postgresql://user:pass@localhost/db"]
     DB_NAMES: List[str]  # Example: ["feedback_db", "feedback_api"] (needed for MongoDB)
+    
+    # Port Value
+    PORT: int
 
     # Pydantic v2+ configuration
     model_config = SettingsConfigDict(
