@@ -14,3 +14,7 @@ class UserInDB(BaseModel):
     email: EmailStr
     hashed_password: str
     api_key: str
+    
+class UserValidate(BaseModel):
+    user_id: str
+    api_key: str

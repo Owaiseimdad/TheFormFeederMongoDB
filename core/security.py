@@ -22,9 +22,9 @@ async def validate_api_key(
     if not api_key:
         return False
     user = None
-    for db_Choice in db_strategy:
-        if db_Choice['mongodb']:
-            user = await db_Choice['mongodb'].get_record_by_field(
+    for db_Choice in db_strategy.values():
+        if db_Choice:
+            user = await db_Choice.get_record_by_field(
                 api_path="/users",
                 field="api_key",
                 value=api_key

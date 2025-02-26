@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, status
-from api.models.user import UserCreate, UserOut
+from api.models.user import UserCreate, UserOut, UserValidate
 from services.auth import AuthService
 from core.database.strategy import DatabaseStrategy
 from core.config import settings
@@ -19,3 +19,16 @@ async def register_user(
         "email": created_user["email"],
         "api_key": created_user["api_key"]
     }
+    
+    
+@router.get("/validate", status_code=status.HTTP_200_OK)
+async def validate_user(
+    user_data: UserValidate,
+    db_strategy: DatabaseStrategy = Depends(get_db_strategy)
+):
+    auth_service = AuthService(db_strategy)
+    created_user = await auth_service.validate_user(user_data.dict())
+    if created_user:
+        return {
+            "status": "Exists"
+        }

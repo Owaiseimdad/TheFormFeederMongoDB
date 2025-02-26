@@ -9,10 +9,10 @@ class FeedbackService:
     
     async def create_feedback(self, feedback):
         feedback_data = feedback.dict()
-        for strategy in self.db_strategies:
-            if strategy['mongodb']:
+        for strategy in self.db_strategies.values():
+            if strategy:
                 feedback_data["created_at"] = datetime.utcnow().isoformat()
-                created = await strategy['mongodb'].create_record(
+                created = await strategy.create_record(
                     api_path="/feedbacks",
                     data=feedback_data
                 )

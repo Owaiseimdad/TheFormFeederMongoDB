@@ -14,4 +14,4 @@ def register_routes(app: FastAPI):
     for module_name in ROUTE_MODULES:
         module = importlib.import_module(module_name)
         if hasattr(module, "router"):
-            app.include_router(module.router, prefix="/api/v1")  # Prefixing all routes
+            app.include_router(module.router, prefix="/api/v1")
